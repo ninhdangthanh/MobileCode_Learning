@@ -2,7 +2,6 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 
-
 void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
@@ -13,9 +12,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: "Flutter Restaurant App Demo",
       debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        primarySwatch: Colors.blue
-      ),
+      theme: ThemeData(primarySwatch: Colors.blue),
       home: MyHomePage(),
     );
   }
@@ -38,19 +35,18 @@ class MyHomePage extends StatelessWidget {
     Future<List<Widget>> createList() async {
       List<Widget> items = <Widget>[];
       String dataString =
-      await DefaultAssetBundle.of(context).loadString("assets/data.json");
+          await DefaultAssetBundle.of(context).loadString("assets/data.json");
       List<dynamic> dataJSON = jsonDecode(dataString);
 
-
       dataJSON.forEach((object) {
-
-        String finalString= "";
+        String finalString = "";
         List<dynamic> dataList = object["placeItems"];
-        dataList.forEach((item){
+        dataList.forEach((item) {
           finalString = finalString + item + " | ";
         });
 
-        items.add(Padding(padding: EdgeInsets.all(2.0),
+        items.add(Padding(
+          padding: EdgeInsets.all(2.0),
           child: Container(
             decoration: const BoxDecoration(
                 color: Colors.white,
@@ -59,39 +55,57 @@ class MyHomePage extends StatelessWidget {
                   BoxShadow(
                       color: Colors.black12,
                       spreadRadius: 2.0,
-                      blurRadius: 5.0
-                  ),
-                ]
-            ),
+                      blurRadius: 5.0),
+                ]),
             margin: EdgeInsets.all(5.0),
             child: Row(
               mainAxisSize: MainAxisSize.max,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
                 ClipRRect(
-                  borderRadius: const BorderRadius.only(topLeft: Radius.circular(10.0),bottomLeft: Radius.circular(10.0)),
-                  child: Image.asset(object["placeImage"],width: 80,height: 80,fit: BoxFit.cover,),
+                  borderRadius: const BorderRadius.only(
+                      topLeft: Radius.circular(10.0),
+                      bottomLeft: Radius.circular(10.0)),
+                  child: Image.asset(
+                    object["placeImage"],
+                    width: 80,
+                    height: 80,
+                    fit: BoxFit.cover,
+                  ),
                 ),
                 SizedBox(
-                  width: 250,
+                  // width: 250,
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
                         Text(object["placeName"]),
-                        Padding(
-                          padding: const EdgeInsets.only(top: 2.0,bottom: 2.0),
-                          child: Text(finalString,overflow: TextOverflow.ellipsis,style: TextStyle(fontSize: 12.0,color: Colors.black54,),maxLines: 1,),
+                        Container(
+                          padding: const EdgeInsets.only(top: 2.0, bottom: 2.0),
+                          child: Text(
+                            finalString,
+                            overflow: TextOverflow.ellipsis,
+                            style: TextStyle(
+                              fontSize: 12.0,
+                              color: Colors.black54,
+                            ),
+                            maxLines: 1,
+                          ),
                         ),
-                        Text("Min. Order: ${object["minOrder"]}",style: TextStyle(fontSize: 12.0,color: Colors.black54),)
+                        Text(
+                          "Min. Order: ${object["minOrder"]}",
+                          style:
+                              TextStyle(fontSize: 12.0, color: Colors.black54),
+                        )
                       ],
                     ),
                   ),
                 )
               ],
             ),
-          ),));
+          ),
+        ));
       });
 
       return items;
@@ -103,50 +117,54 @@ class MyHomePage extends StatelessWidget {
         width: screenWidth,
         child: SafeArea(
             child: SingleChildScrollView(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: <Widget>[
-                  Padding(
-                    padding: const EdgeInsets.fromLTRB(10, 5, 10, 5),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: <Widget>[
-                        IconButton(icon: Icon(Icons.menu), onPressed: () {}),
-                        const Text(
-                          "Foodies",
-                          style: TextStyle(fontSize: 50, fontFamily: "Samantha"),
-                        ),
-                        IconButton(icon: Icon(Icons.person), onPressed: () {})
-                      ],
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: <Widget>[
+              Padding(
+                padding: const EdgeInsets.fromLTRB(10, 5, 10, 5),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: <Widget>[
+                    IconButton(icon: Icon(Icons.menu), onPressed: () {}),
+                    const Text(
+                      "Foodies",
+                      style: TextStyle(fontSize: 50, fontFamily: "Samantha"),
                     ),
-                  ),
-                  BannerWidgetArea(),
-                  Container(
-                    child: FutureBuilder(
-                        initialData: <Widget>[Text("")],
-                        future: createList(),
-                        builder: (context,snapshot){
-                          if(snapshot.hasData){
-                            return Padding(
-                              padding: EdgeInsets.all(8.0),
-                              child: ListView(
-                                primary: false,
-                                shrinkWrap: true,
-                                children: snapshot.requireData,
-                              ),
-                            );
-                          } else {
-                            return CircularProgressIndicator();
-                          }
-                        }),
-                  )
-                ],
+                    IconButton(icon: Icon(Icons.person), onPressed: () {})
+                  ],
+                ),
               ),
-            )),
+              BannerWidgetArea(),
+              Container(
+                child: FutureBuilder(
+                    initialData: <Widget>[Text("")],
+                    future: createList(),
+                    builder: (context, snapshot) {
+                      if (snapshot.hasData) {
+                        return Padding(
+                          padding: EdgeInsets.all(8.0),
+                          child: ListView(
+                            primary: false,
+                            shrinkWrap: true,
+                            children: snapshot.requireData,
+                          ),
+                        );
+                      } else {
+                        return CircularProgressIndicator();
+                      }
+                    }),
+              )
+            ],
+          ),
+        )),
       ),
-      floatingActionButton: FloatingActionButton(onPressed: (){},
+      floatingActionButton: FloatingActionButton(
+          onPressed: () {},
           backgroundColor: Colors.black,
-          child: const Icon(MdiIcons.food,color: Colors.white,)),
+          child: const Icon(
+            MdiIcons.food,
+            color: Colors.white,
+          )),
     );
   }
 }
@@ -157,7 +175,7 @@ class BannerWidgetArea extends StatelessWidget {
     var screenWidth = MediaQuery.of(context).size.width;
 
     PageController controller =
-    PageController(viewportFraction: 0.8, initialPage: 1);
+        PageController(viewportFraction: 0.8, initialPage: 1);
 
     List<Widget> banners = <Widget>[];
 
@@ -202,7 +220,8 @@ class BannerWidgetArea extends StatelessWidget {
                   children: <Widget>[
                     Text(
                       bannerItems[x],
-                      style: const TextStyle(fontSize: 25.0, color: Colors.white),
+                      style:
+                          const TextStyle(fontSize: 25.0, color: Colors.white),
                     ),
                     const Text(
                       "More than 40% Off",

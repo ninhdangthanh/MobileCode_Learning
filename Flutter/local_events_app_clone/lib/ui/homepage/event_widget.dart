@@ -65,15 +65,15 @@ class EventWidget extends StatelessWidget {
                   ),
                   Expanded(
                     // flex: 1,
-                     child: Stack(
+                    child: Stack(
                       children: [
                         Container(
                           width: 50,
                           height: 50,
-
                           decoration: BoxDecoration(
                               border: Border.all(color: Colors.grey, width: 3),
-                              borderRadius: BorderRadius.all(Radius.circular(50)),
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(50)),
                               color: Colors.white),
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.center,

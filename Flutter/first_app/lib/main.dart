@@ -4,15 +4,10 @@ import 'MyAppWidget.dart';
 import 'car.dart';
 
 void main() {
-
-  runApp(
-      MaterialApp(
-        title: "Transaction app",
-        theme: ThemeData(
-          primaryColor: Colors.pink
-        ),
-        home: MyAppWidget(),
-      )
-  );
+  runApp(MaterialApp(
+    title: "Transaction app",
+    theme: ThemeData(primaryColor: Colors.pink),
+    debugShowCheckedModeBanner: false,
+    home: MyAppWidget(),
+  ));
 }
-

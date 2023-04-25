@@ -13,23 +13,26 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Food App with Navigation',
-      initialRoute: "/",
-      routes: {
-        'FoodsPage' : (context) => FoodsPage(),
-        'CategoriesPage': (context) => CategoriesPage()
-      },
-      theme: ThemeData(
-        primarySwatch: Colors.cyan,
-        fontFamily: 'Tillana'
-      ),
-      home: Scaffold(
-        appBar: AppBar(
-          centerTitle: true,
-          title: const Text("Food's Category", style: TextStyle(fontWeight: FontWeight.bold,),),
-        ),
-        body: SafeArea(child: CategoriesPage(),)
-      )
-    );
+        title: 'Food App with Navigation',
+        debugShowCheckedModeBanner: false,
+        initialRoute: "/",
+        routes: {
+          'FoodsPage': (context) => FoodsPage(),
+          'CategoriesPage': (context) => CategoriesPage()
+        },
+        theme: ThemeData(primarySwatch: Colors.cyan, fontFamily: 'Tillana'),
+        home: Scaffold(
+            appBar: AppBar(
+              centerTitle: true,
+              title: const Text(
+                "Food's Category",
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ),
+            body: SafeArea(
+              child: CategoriesPage(),
+            )));
   }
 }
